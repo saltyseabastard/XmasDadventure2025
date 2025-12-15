@@ -1,9 +1,9 @@
 from colorama import Fore, Style
 import os
 from enum import Enum
-import pygame
-from tkinter import Tk, Label
-from PIL import Image, ImageTk
+# import pygame
+# from tkinter import Tk, Label
+# from PIL import Image, ImageTk
 
 ascii_logo = r"""
   ____ _          _     _                       
@@ -24,8 +24,8 @@ ascii_logo = r"""
  / __/| |_| / __/|__   _|
 |_____|\___/_____|  |_|  """
 
-pygame.mixer.init()
-morse = pygame.mixer.Sound('morsecode.wav')
+# pygame.mixer.init()
+# morse = pygame.mixer.Sound('morsecode.wav')
 
 class C_Puzzles(Enum):
     Moon = 1,
@@ -222,6 +222,7 @@ def enter_secret_code():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    pass
 
 

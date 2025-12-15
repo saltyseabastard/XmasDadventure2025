@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlight Core Terminal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="monitor">
+        <div class="screen">
+            <div class="crt-overlay"></div>
+            <div class="content">
+                <div id="output">
+                    <pre class="ascii-art">
+  ____ _          _     _                       
+ / ___| |__  _ __(_)___| |_ _ __ ___   __ _ ___ 
+| |   | '_ \| '__| / __| __| '_ ` _ \ / _` / __|
+| |___| | | | |  | \__ \ |_| | | | | | (_| \__ \
+ \____|_| |_|_|  |_|___/\__|_| |_| |_|\__,_|___/
+ 
+ ____            _                 _                  
+|  _ \  __ _  __| |_   _____ _ __ | |_ _   _ _ __ ___ 
+| | | |/ _` |/ _` \ \ / / _ \ '_ \| __| | | | '__/ _ \
+| |_| | (_| | (_| |\ V /  __/ | | | |_| |_| | | |  __/
+|____/ \__,_|\__,_| \_/ \___|_| |_|\__|\__,_|_|  \___|
+                                                      
+ ____   ___ ____  _  _   
+|___ \ / _ \___ \| || |  
+  __) | | | |__) | || |_ 
+ / __/| |_| / __/|__   _|
+|_____|\___/_____|  |_|  
+                    </pre>
+                    <div id="logs"></div>
+                </div>
+                <div class="input-line">
+                    <span class="prompt">USER&gt;</span>
+                    <input type="text" id="command-input" autofocus autocomplete="off" spellcheck="false">
+                    <span class="cursor">_</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

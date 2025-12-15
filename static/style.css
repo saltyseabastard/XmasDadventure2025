@@ -1,0 +1,177 @@
+:root {
+    --phosphor-green: #39ff14;
+    --phosphor-dim: #1b800a;
+    --screen-bg: #0d120d;
+    --scanline-color: rgba(18, 16, 16, 0.5);
+    --crt-curve: radial-gradient(circle, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 80%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: var(--phosphor-green);
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.monitor {
+    width: 100vw;
+    height: 100vh;
+    background: #111;
+    border: 5px solid #222;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--screen-bg);
+    position: relative;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    text-shadow: 0 0 5px var(--phosphor-green);
+}
+
+/* CRT Scanline and Flicker Effects */
+.crt-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.2)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 10;
+    animation: flicker 0.15s infinite;
+}
+
+.monitor::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: var(--crt-curve);
+    z-index: 11;
+    pointer-events: none;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 0.95; }
+    10% { opacity: 0.9; }
+    15% { opacity: 0.95; }
+    20% { opacity: 0.98; }
+    25% { opacity: 0.95; }
+    30% { opacity: 0.9; }
+    35% { opacity: 0.96; }
+    40% { opacity: 0.98; }
+    45% { opacity: 0.95; }
+    50% { opacity: 0.99; }
+    55% { opacity: 0.93; }
+    60% { opacity: 0.9; }
+    65% { opacity: 0.96; }
+    70% { opacity: 1; }
+    75% { opacity: 0.97; }
+    80% { opacity: 0.95; }
+    85% { opacity: 0.92; }
+    90% { opacity: 0.98; }
+    95% { opacity: 0.95; }
+    100% { opacity: 0.96; }
+}
+
+/* Content Styling */
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 5;
+    position: relative;
+    padding-bottom: 50px; 
+}
+
+.ascii-art {
+    font-size: 10px;
+    line-height: 10px;
+    white-space: pre;
+    color: var(--phosphor-green);
+    margin-bottom: 20px;
+}
+
+#logs {
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+}
+
+.log-entry {
+    margin-bottom: 5px;
+    opacity: 0;
+    animation: fadeIn 0.1s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--phosphor-dim);
+    padding-top: 10px;
+}
+
+.prompt {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#command-input {
+    background: transparent;
+    border: none;
+    color: var(--phosphor-green);
+    font-family: inherit;
+    font-size: inherit;
+    flex-grow: 1;
+    outline: none;
+    text-transform: uppercase;
+    text-shadow: inherit;
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #000;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--phosphor-dim);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--phosphor-green);
+}
