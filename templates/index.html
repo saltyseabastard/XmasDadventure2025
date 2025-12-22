@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
+
 <body>
     <div class="monitor">
         <div class="screen">
@@ -35,7 +37,7 @@
                     <div id="logs"></div>
                 </div>
                 <div class="input-line">
-                    <span class="prompt">USER&gt;</span>
+                    <span class="prompt">DECRYPT&gt;</span>
                     <input type="text" id="command-input" autofocus autocomplete="off" spellcheck="false">
                     <span class="cursor">_</span>
                 </div>
@@ -44,4 +46,5 @@
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>
