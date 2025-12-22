@@ -191,7 +191,7 @@ class GameEngine:
         found = False
         for puzzle in PUZZLES:
             if cmd_lower in [p.lower() for p in puzzle['patterns']]:
-                self.log(">>> MATCH CONFIRMED <<<", "cyan")
+                self.log("\n\n\n>>> MATCH CONFIRMED <<<", "cyan")
                 self.log(puzzle['message'], "white")
                 found = True
                 break
@@ -243,6 +243,7 @@ def handle_midi(data):
         game.midi_buffer = []
 
     if velocity > 0:
+        game.log(f"MIDI SIGNAL DETECTED: {note}", "magenta")
         game.midi_buffer.append(note)
         if len(game.midi_buffer) > 4:
             game.midi_buffer.pop(0)
