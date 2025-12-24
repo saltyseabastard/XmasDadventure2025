@@ -48,7 +48,7 @@ PUZZLES = [
         "message": "System stabilized, Surgeon. You have defused the threat and grounded our physics model. But a single agent cannot defeat the combined power of Agent Frostbyte and the Architect alone.\n\nIMMEDIATE ACTION: Link up with the other agents. Put your heads together for the final puzzle.\nVictory is at hand."
     },
     {
-        "patterns": ["goodcookie, good cookie"],
+        "patterns": ["goodcookie", "good cookie", "good_cookie"],
         "message": "DOUG: \"Greetings, Agent E. The Creative Spark.\n\nMy sensors are picking up some serious bad vibes. Frostbyte has been messy.\nHe left a 'glitch'—a crime scene—somewhere on the property.\n\nYou’re the artist, the one with the eye for detail. We need you to go investigative mode on this one.\nDon't let the shadows scare you; you've read worse in those scary books of yours.\n\nHere is the location data, translated into a riddle:\n\n'Leave the carpet, seek the stone,\nWhere Iron Giants rest alone.\nA cavern cold with a rolling door,\nOil and shadows stain the floor.\nThe air smells faint of gasoline,\nGo forth and find the Crime Scene.'\n\nLook for the evidence. Don't touch the ectoplasm... it's probably just grease.\nProbably.\""
     },
     {
