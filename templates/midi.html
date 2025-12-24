@@ -104,6 +104,7 @@
 
             // Note On
             if (command === 144 && velocity > 0) {
+                console.log("midi.html says MIDI message received:", message.data);
                 // Visualize
                 const barIndex = note % 12; // Simple wrap for visualization
                 const bar = bars[barIndex];

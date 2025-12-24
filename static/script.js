@@ -22,6 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Socket Events
+    socket.on('redirect', (data) => {
+        window.location.href = data.url;
+    });
+
     socket.on('new_log', (data) => {
         appendLog(data.text, data.color);
     });
@@ -56,31 +60,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     // TODO: Web MIDI Implementation
-    if (navigator.requestMIDIAccess) {
-        navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-    } else {
-        appendLog("Web MIDI API not supported in this browser.", "red");
-    }
+    // if (navigator.requestMIDIAccess) {
+    //     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+    // } else {
+    //     appendLog("Web MIDI API not supported in this browser.", "red");
+    // }
+    //
+    // function onMIDISuccess(midiAccess) {
+    //     appendLog("MIDI System Initialized.", "green");
+    //     for (var input of midiAccess.inputs.values()) {
+    //         input.onmidimessage = getMIDIMessage;
+    //     }
+    // }
+    //
+    // function onMIDIFailure() {
+    //     appendLog("Could not access your MIDI devices.", "red");
+    // }
 
-    function onMIDISuccess(midiAccess) {
-        appendLog("MIDI System Initialized.", "green");
-        for (var input of midiAccess.inputs.values()) {
-            input.onmidimessage = getMIDIMessage;
-        }
-    }
-
-    function onMIDIFailure() {
-        appendLog("Could not access your MIDI devices.", "red");
-    }
-
-    function getMIDIMessage(message) {
-        var command = message.data[0];
-        var note = message.data[1];
-        var velocity = (message.data.length > 2) ? message.data[2] : 0;
-
-        // noteOn (typically 144)
-        if (command === 144 && velocity > 0) {
-            socket.emit('midi_note', { note: note, velocity: velocity });
-        }
-    }
+    // function getMIDIMessage(message) {
+    //     var command = message.data[0];
+    //     var note = message.data[1];
+    //     var velocity = (message.data.length > 2) ? message.data[2] : 0;
+    //
+    //     // noteOn (typically 144)
+    //     if (command === 144 && velocity > 0) {
+    //         console.log("script.js says MIDI message received:", message.data);
+    //         socket.emit('midi_note', { note: note, velocity: velocity });
+    //     }
+    // }
 });

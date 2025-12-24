@@ -1,9 +1,24 @@
 import mido
 import os
 from colorama import Fore, Style
+import pretty_midi as midi
+
 
 def start_midi_handshake():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+    ascii_title = r"""
+ _____ ______   ___  ___  ________  ___  ________          ________  _________  _________  ________  ________  ___  __       
+|\   _ \  _   \|\  \|\  \|\   ____\|\  \|\   ____\        |\   __  \|\___   ___\\___   ___\\   __  \|\   ____\|\  \|\  \     
+\ \  \\\__\ \  \ \  \\\  \ \  \___|\ \  \ \  \___|        \ \  \|\  \|___ \  \_\|___ \  \_\ \  \|\  \ \  \___|\ \  \/  /|_   
+ \ \  \\|__| \  \ \  \\\  \ \_____  \ \  \ \  \            \ \   __  \   \ \  \     \ \  \ \ \   __  \ \  \    \ \   ___  \  
+  \ \  \    \ \  \ \  \\\  \|____|\  \ \  \ \  \____        \ \  \ \  \   \ \  \     \ \  \ \ \  \ \  \ \  \____\ \  \\ \  \ 
+   \ \__\    \ \__\ \_______\____\_\  \ \__\ \_______\       \ \__\ \__\   \ \__\     \ \__\ \ \__\ \__\ \_______\ \__\\ \__\
+    \|__|     \|__|\|_______|\_________\|__|\|_______|        \|__|\|__|    \|__|      \|__|  \|__|\|__|\|_______|\|__| \|__|
+                            \|_________|                                                                                     
+                                                                                                                             
+                                                                                                                             """
+    print(f"{Fore.CYAN}{ascii_title}{Style.RESET_ALL}")
     print(f"{Fore.GREEN}\n--- AUDIO SECURITY PROTOCOL INITIATED ---")
     print("CONNECT INTERFACE CABLE TO PORT: [PIANO]")
 
@@ -38,7 +53,7 @@ def start_midi_handshake():
             for msg in inport:
                 # Filter for "Note On" events with velocity > 0
                 if msg.type == 'note_on' and msg.velocity > 0:
-                    print(f"{Fore.GREEN} NOTE RECEIVED: {msg.note}")  # Optional: Feedback on screen
+                    print(f"{Fore.GREEN} NOTE RECEIVED: {midi.note_number_to_name(msg.note)}")  # Optional: Feedback on screen
 
                     user_input_buffer.append(msg.note)
 
@@ -59,6 +74,16 @@ def start_midi_handshake():
                     elif user_input_buffer == chronos_protocol or user_input_buffer == chronos_protocol_2 or user_input_buffer == chronos_protocol_3 or user_input_buffer == chronos_protocol_4:
                         print(f"{Fore.WHITE}\n*** ACCESS GRANTED ***")
                         print(f"CODE: {Fore.YELLOW}MODULATION\n\n\n")
+                        print(f"{Fore.GREEN}\n\n\nARCHITECT: You may have defeated me this time but...")
+                        ascii_msg = r"""
+ _ _ __   __ __       __         .______    _______    .______        ___       ______  __    __     _ _ 
+( | )  | (_ )  |     |  |        |   _  \  |   ____|   |   _  \      /   \     /      ||  |  |  |   ( | )
+ V V|  |  |/|  |     |  |        |  |_)  | |  |__      |  |_)  |    /  ^  \   |  ,----'|  |__|  |    V V 
+    |  |    |  |     |  |        |   _  <  |   __|     |   _  <    /  /_\  \  |  |     |   __   |        
+    |  |    |  `----.|  `----.   |  |_)  | |  |____    |  |_)  |  /  _____  \ |  `----.|  |  |  |  __    
+    |__|    |_______||_______|   |______/  |_______|   |______/  /__/     \__\ \______||__|  |__| (__)   
+                                                                                                         """
+                        print(ascii_msg)
                         user_input_buffer.clear()
 
                         return True

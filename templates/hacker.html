@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM BREACH DETECTED</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        :root {
+            --phosphor-green: #ff3333; /* HACKER RED */
+            --phosphor-dim: #800a0a;
+            --screen-bg: #1a0505;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            border: 2px solid var(--phosphor-green);
+            height: 20px;
+            margin-top: 20px;
+        }
+        
+        .progress-fill {
+            background-color: var(--phosphor-green);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        #math-problem {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .alert-header {
+            color: var(--phosphor-green);
+            text-align: center;
+            animation: blink 0.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="monitor">
+        <div class="screen">
+            <div class="crt-overlay"></div>
+            <div class="content">
+                <center>
+                <h1 class="alert-header">⚠️ SYSTEM BREACH DETECTED ⚠️</h1>
+                <pre class="ascii-art">
+  _    _          _____  _  ________ _____  
+ | |  | |   /\   / ____|| |/ /  ____|  __ \ 
+ | |__| |  /  \ | |     | ' /| |__  | |__) |
+ |  __  | / /\ \| |     |  < |  __| |  _  / 
+ | |  | |/ ____ \ |____ | . \| |____| | \ \ 
+ |_|  |_/_/    \_\_____||_|\_\______|_|  \_\
+                </pre>
+                
+                <div id="game-area">
+                    <p>FIREWALL INTEGRITY CRITICAL.</p>
+                    <p>SOLVE EQUATIONS TO RE-INITIALIZE DEFENSES.</p>
+                    
+                    <div id="math-problem">Initializing...</div>
+                    
+                    <div class="input-line" style="justify-content: center;">
+                        <span class="prompt">ANSWER&gt;</span>
+                        <input type="text" id="command-input" autofocus autocomplete="off" style="width: 100px;">
+                    </div>
+
+                    <div class="progress-bar">
+                        <div id="progress" class="progress-fill"></div>
+                    </div>
+                </div>
+                </center>
+                
+                <div id="logs" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        // Override standard socket handling for hacker specific logic if needed
+        const gameSocket = io();
+        const problemDiv = document.getElementById('math-problem');
+        const progressBar = document.getElementById('progress');
+        const input = document.getElementById('command-input');
+        
+        // Use a "hacker_join" event to start the session? 
+        // Or just reuse 'command' but interpret differently in backend?
+        // Let's rely on server state.
+        
+        gameSocket.on('connect', () => {
+             gameSocket.emit('hacker_init');
+        });
+
+        gameSocket.on('hacker_problem', (data) => {
+            console.log("Got a new event " + data);
+             problemDiv.innerText = data.problem;
+             const pct = (data.current / data.total) * 100;
+             progressBar.style.width = pct + '%';
+        });
+
+        gameSocket.on('hacker_complete', (data) => {
+             problemDiv.innerText = "SYSTEM RESTORED.";
+             input.style.display = 'none';
+             document.querySelector('.alert-header').innerText = "SYSTEM SECURE";
+             document.querySelector('.alert-header').style.color = "#39ff14"; // Green
+             document.querySelector('.ascii-art').style.color = "#39ff14";
+             document.getElementById('logs').innerHTML = "<div>ACCESS CODE UNLOCKED: <span style='color:yellow; font-size:2em;'>1145</span></div>";
+        });
+        
+        // Override the generic Input Handler from script.js if it conflicts, 
+        // but script.js listens to #command-input 'enter'.
+        
+        // We will repurpose the 'command' event in script.js to send answers.
+    </script>
+</body>
+</html>
